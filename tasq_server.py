@@ -47,7 +47,7 @@ process = None
 def process_task():
     os.chdir(tasks[0]["path"])
 
-    cmd = ('su %s -c "%s > %s 2>&1"' %
+    cmd = ('su -p %s -c "%s > %s 2>&1"' %
                 (tasks[0]["user"], tasks[0]["job"], tasks[0]["out"]))
     def real_worker(cmd):
         global process
