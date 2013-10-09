@@ -51,6 +51,7 @@ def process_task():
                 (tasks[0]["user"], tasks[0]["job"], tasks[0]["out"]))
     def real_worker(cmd):
         global process
+        do_log("do task: %s" % cmd)
         process = subprocess.Popen(cmd, shell=True)
         process.communicate()
 
@@ -67,6 +68,7 @@ def process_task():
                 'it is running over %d seconds" >> %s' %
                 (TIMEOUT, tasks[0]["out"]))
 
+    do_log("dequeued")
     del tasks[0]
 
 def enq_task(task):
@@ -74,6 +76,8 @@ def enq_task(task):
     if alreadyqueued >= 3:
         return False
     tasks.append(task)
+    do_log("enqueud task. user: %s, path: %s, cmd: %s, output: %s" %
+            (task["user"], task["path"], task["job"], task["out"]))
     return True
 
 def parse_msg(msg):
