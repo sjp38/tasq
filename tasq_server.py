@@ -42,9 +42,8 @@ def accept_socket():
 
 def process_task():
     os.chdir(tasks[0]["path"])
-    os.system("%s > %s 2>&1" % (tasks[0]["job"], tasks[0]["out"]))
-    os.system("chown %s:%s %s" %
-            (tasks[0]["user"], tasks[0]["user"], tasks[0]["out"]))
+    os.system('su %s -c "%s > %s 2>&1"' %
+            (tasks[0]["user"], tasks[0]["job"], tasks[0]["out"]))
 
     del tasks[0]
 
