@@ -10,11 +10,14 @@ __license__ = "GPLv3"
 
 import os
 import socket
+import subprocess
 import threading
 import time
 
 LOGFILE_PATH = "/home/cudata/tasq_log"
 LOGFILE = None
+
+TIMEOUT = 300
 
 HOST = ''
 PORT = 13537
@@ -40,10 +43,29 @@ def accept_socket():
         do_log("Connected by : %s" % addr.__str__())
         receive_msg()
 
+process = None
 def process_task():
     os.chdir(tasks[0]["path"])
-    os.system('su %s -c "%s > %s 2>&1"' %
-            (tasks[0]["user"], tasks[0]["job"], tasks[0]["out"]))
+
+    cmd = ('su %s -c "%s > %s 2>&1"' %
+                (tasks[0]["user"], tasks[0]["job"], tasks[0]["out"]))
+    def real_worker(cmd):
+        global process
+        process = subprocess.Popen(cmd, shell=True)
+        process.communicate()
+
+    thread = threading.Thread(target=real_worker, args=(cmd,))
+    thread.start()
+
+    thread.join(TIMEOUT)
+    if thread.is_alive():
+        do_log("timeout!")
+        process.terminate()
+        thread.join()
+
+        os.system('echo "[tasq] Stop the command because ' +
+                'it is running over %d seconds" >> %s' %
+                (TIMEOUT, tasks[0]["out"]))
 
     del tasks[0]
 
