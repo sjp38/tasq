@@ -14,7 +14,7 @@ import subprocess
 import threading
 import time
 
-LOGFILE_PATH = "/home/cudata/tasq_log"
+LOGFILE_PATH = "tasq_log"
 LOGFILE = None
 
 TIMEOUT = 300
