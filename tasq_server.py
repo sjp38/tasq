@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Receive user's request and do things FIFO order.
+Receive and serve user requested tasks in FIFO manner.
 """
 __author__ = "SeongJae Park"
 __email__ = "sj38.park@gmail.com"
