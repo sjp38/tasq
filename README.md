@@ -1,13 +1,19 @@
-# tasq
+tasq
+====
+
 Receive user job requests inside queue and dequeue / process the jobs.
 Aims to be used for batched sequential tasks processing. Maybe useful
 for aggressive time sharing homework test environment.
 
-# PATH Setting
+
+PATH Setting
+============
+
 `tasq` server executes the received commands using `su -p <requester username>`
-to not make permission problem.  As man page said, the `-p` option reset PATH
-according to the `ENV_PATH` in `/etc/login.defs` file.  _Never forget_ to modify
-`/etc/login.defs` file if you want to allow binaries in another paths.
+to not make permission problem.  As man page says as below, the `-p` option
+reset PATH according to the `ENV_PATH` in `/etc/login.defs` file.  __Never
+forget__ to modify `/etc/login.defs` file if you want to allow binaries in
+another paths.
 
 ```
 -m, -p, --preserve-environment
@@ -37,21 +43,32 @@ according to the `ENV_PATH` in `/etc/login.defs` file.  _Never forget_ to modify
        Other environments might be set by PAM modules.
 ```
 
-# Usage
+
+Usage
+=====
+
 Run `tasq_server.py` alone with super user permission first and
 execute `tasq` with next usage.
 
 `$ tasq <enq | list> [command] [output]`
 
-## Example
+
+Example
+-------
+
 ```
 $ tasq enq nvcc --output-file matmul matmul.cu output
 $ tasq enq ./matmul output2
 $ tasq list
 ```
 
-# License
+License
+=======
+
 GPL v3
 
-# Author
+
+Author
+======
+
 SeongJae Park (sj38.park@gmail.com)
