@@ -11,9 +11,9 @@ PATH Setting
 
 `tasq` server executes the received commands using `su -p <requester username>`
 to not make permission problem.  As man page says as below, the `-p` option
-reset PATH according to the `ENV_PATH` in `/etc/login.defs` file.  __Never
-forget__ to modify `/etc/login.defs` file if you want to allow binaries in
-another paths.
+reset `PATH` according to the `ENV_PATH` in `/etc/login.defs` file.  Thus,
+__Never forget__ to modify `/etc/login.defs` file if you want to allow binaries
+in paths other than the minimal paths (__CUDA__ can be an example).
 
 ```
 -m, -p, --preserve-environment
