@@ -56,11 +56,17 @@ execute `tasq` with next usage.
 Example
 -------
 
+For example, you can use Nvidia CUDA in below way.  **Note** that the example
+is using `nvcc` without absolute path.  It could fail if the path to `nvcc` is
+not added to the `ENV_PATH` of the `/etc/login.defs` file.  See `PATH Setting`
+section above for detail.
+
 ```
 $ tasq enq nvcc --output-file matmul matmul.cu output
 $ tasq enq ./matmul output2
 $ tasq list
 ```
+
 
 License
 =======
